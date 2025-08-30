@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Uma Página Web Utilizando as Tags Aprendidas</title>
+</head>
+<body>
+
+    <h1 style="color: blue;">Criar Uma Página Web Utilizando as Tags Aprendidas</h1>
+    <hr>
+
+    <h2 style="color: green;">Explorando as tags HTML</h2>
+    <p>Neste projeto, estou colocando em prática o que aprendi sobre as tags do Módulo 1 da trilha de HTML da <abbr title="Digital Innovation One">DIO</abbr>.</p>
+    <p>É uma <font color="red">oportunidade</font> de consolidar o conhecimento e aplicar novas tags.</p>
+
+    <h3>Sobre as tags de texto</h3>
+    <p>A tag <mark>é usada para destacar</mark> partes do texto. É diferente de <strong>usar a tag strong</strong>, que indica importância. E a tag <i>i</i> é usada para deixar o texto em itálico, enquanto a tag <u>u</u> o sublinha.</p>
+
+    <p><small>Este é um texto com a tag small.</small></p>
+    <p>A tag <sub>sub</sub> é para texto subscrito e a tag <sup>sup</sup> é para texto sobrescrito, útil para fórmulas como H<sub>2</sub>O ou potências como 2<sup>2</sup>.</p>
+    
+    <blockquote>
+        <p>A educação é a arma mais poderosa que você pode usar para mudar o mundo.</p>
+        <footer>— Nelson Mandela</footer>
+    </blockquote>
+
+    <hr>
+
+    <h3>Aprendendo sobre Listas</h3>
+    <p>Aqui estão as tags que utilizei neste projeto:</p>
+    
+    <ol>
+        <li>Tags de Título: `<h1>`, `<h2>`, `<h3>`</li>
+        <li>Tags de Texto: `<p>`, `<hr>`, `<mark>`, `<strong>`, `<i>`, `<u>`, `<small>`, `<sub>`, `<sup>`</li>
+        <li>Tags de Citação: `<blockquote>`</li>
+        <li>Tags de Lista: `<ul>`, `<ol>`, `<li>`</li>
+        <li>Tags de Link: `<a>`</li>
+    </ol>
+    
+    <p>Minhas tarefas para o projeto:</p>
+    <ul>
+        <li>Elaborar a estrutura básica do HTML.</li>
+        <li>Utilizar todas as tags solicitadas.</li>
+        <li>Adicionar as tags `<font>`, `<abbr>` e `<del>`.</li>
+        <li>Publicar o projeto no GitHub. <del>Não vou publicar ainda.</del></li>
+    </ul>
+
+    <hr>
+    <h3>Contato e Referências</h3>
+    <p>Você pode acessar o repositório oficial do curso no <a href="https://github.com/digitalinnovationone/trilha-html-modulo-1" target="_blank">GitHub da DIO</a>.</p>
+    
+    <p>
+        <a href="https://www.dio.me/" target="_blank">Acesse o site da DIO</a>
+    </p>
+
+</body>
+</html>
