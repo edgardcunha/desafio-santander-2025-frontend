@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page Desafio "Criando sua Primeira Landing Page com HTML e CSS"</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos globais e reset */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+            --text-light: #fff;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Estilo do cabeçalho */
+        .header {
+            background-color: var(--text-light);
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--secondary-color);
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Seção principal (Hero) */
+        .hero {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background-color: var(--text-light);
+            color: var(--primary-color);
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+        }
+
+        /* Seção de recursos */
+        .features {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .features h2 {
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .feature-grid {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .feature-item {
+            flex-basis: 30%;
+            margin: 10px;
+            padding: 20px;
+            background-color: var(--text-light);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-item h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Seção de depoimentos */
+        .testimonials {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 36px;
+            margin-bottom: 50px;
+        }
+
+        .testimonial-item {
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        .testimonial-item p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .testimonial-item span {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Rodapé */
+        .footer {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        /* Media Queries para responsividade */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+
+            .logo {
+                margin-bottom: 10px;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .feature-item {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-content">
+            <a href="#" class="logo">Marca da Empresa</a>
+            <nav>
+                <a href="#inicio" class="nav-link">Início</a>
+                <a href="#recursos" class="nav-link">Recursos</a>
+                <a href="#depoimentos" class="nav-link">Depoimentos</a>
+                <a href="#" class="nav-link">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="inicio" class="hero">
+            <div class="container">
+                <h1>Crie seu Futuro Digital</h1>
+                <p>Aprenda a programar, construa projetos incríveis e decole sua carreira.</p>
+                <a href="#" class="btn">Comece Agora!</a>
+            </div>
+        </section>
+
+        <section id="recursos" class="features">
+            <div class="container">
+                <h2>O que oferecemos?</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h3>Aulas Práticas</h3>
+                        <p>Conteúdo direto ao ponto, focado no que você realmente precisa saber para construir.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Projetos Reais</h3>
+                        <p>Desenvolva projetos que você pode adicionar ao seu portfólio e impressionar recrutadores.</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>Comunidade Ativa</h3>
+                        <p>Conecte-se com outros desenvolvedores, tire dúvidas e colabore em projetos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="depoimentos" class="testimonials">
+            <div class="container">
+                <h2>O que nossos alunos dizem?</h2>
+                <div class="testimonial-item">
+                    <p>"A plataforma da DIO mudou minha vida profissional. Graças aos desafios práticos, consegui minha primeira vaga em uma empresa de tecnologia!"</p>
+                    <span>- João da Silva, Desenvolvedor Frontend</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Marca da Empresa. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
