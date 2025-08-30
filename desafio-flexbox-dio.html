@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio "Recriando o Youtube"</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variáveis e Estilos Globais */
+        :root {
+            --bg-color: #0f0f0f;
+            --text-color: #f1f1f1;
+            --secondary-text-color: #aaaaaa;
+            --nav-bg-color: #212121;
+            --nav-item-hover: #383838;
+            --card-bg-color: #2c2c2c;
+            --border-color: #3d3d3d;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex; /* Flexbox para o layout principal */
+            flex-direction: column;
+        }
+
+        /* Estrutura Principal */
+        .container {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Cabeçalho (Header) */
+        header {
+            background-color: var(--bg-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left, .header-center, .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .youtube-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        .search-bar {
+            width: 400px;
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background-color: var(--nav-bg-color);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .search-btn {
+            background-color: var(--nav-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 8px 15px;
+            margin-left: 5px;
+            color: var(--secondary-text-color);
+            cursor: pointer;
+        }
+
+        /* Barra de Navegação Lateral (Sidebar) */
+        .sidebar {
+            width: 240px;
+            background-color: var(--bg-color);
+            padding: 20px;
+            border-right: 1px solid var(--border-color);
+            position: sticky;
+            top: 60px; /* Ajuste para ficar abaixo do header */
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .sidebar-nav li:hover {
+            background-color: var(--nav-item-hover);
+        }
+
+        .sidebar-nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Ícones da barra lateral - Placeholder */
+        .sidebar-nav a::before {
+            content: "🏠"; /* Ícone de casa */
+            margin-right: 15px;
+        }
+        .sidebar-nav li:nth-child(2) a::before { content: "▶️"; }
+        .sidebar-nav li:nth-child(3) a::before { content: "🎵"; }
+        .sidebar-nav li:nth-child(4) a::before { content: "🎮"; }
+        .sidebar-nav li:nth-child(5) a::before { content: "⚙️"; }
+
+        /* Grade de Vídeos (Video Grid) */
+        .video-grid {
+            display: flex;
+            flex-wrap: wrap; /* Permite que os vídeos quebrem a linha */
+            gap: 20px; /* Espaço entre os vídeos */
+            justify-content: center;
+        }
+
+        .video-card {
+            width: 320px;
+            margin-bottom: 20px;
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 180px;
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .video-details {
+            display: flex;
+        }
+
+        .channel-thumbnail {
+            width: 36px;
+            height: 36px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .video-info h3 {
+            font-size: 16px;
+            margin: 0 0 5px 0;
+            font-weight: 500;
+        }
+
+        .video-info p {
+            font-size: 14px;
+            color: var(--secondary-text-color);
+            margin: 0;
+        }
+
+        /* Responsividade com Media Queries */
+        @media (max-width: 1024px) {
+            .video-grid {
+                justify-content: space-around;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none; /* Esconde a barra lateral em telas menores */
+            }
+            .header-center {
+                display: none; /* Esconde a barra de busca em telas menores */
+            }
+            .header {
+                justify-content: center;
+            }
+            .youtube-logo {
+                margin: 0;
+            }
+            main {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-left">
+            <span class="youtube-logo">YouTube <small>(clone)</small></span>
+        </div>
+        <div class="header-center">
+            <input type="text" class="search-bar" placeholder="Pesquisar">
+            <button class="search-btn">🔍</button>
+        </div>
+        <div class="header-right">
+            <!-- Ícones do usuário, como avatar, criar, notificações, etc. -->
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-nav">
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Shorts</a></li>
+                    <li><a href="#">Inscrições</a></li>
+                    <li><a href="#">Originais</a></li>
+                    <li><a href="#">Música</a></li>
+                    <li><a href="#">Jogos</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <section class="video-grid">
+                <!-- Card de Vídeo 1 -->
+                <article class="video-card">
+                    <a href="#" class="video-thumbnail">
+                        <img src="https://placehold.co/320x180/2c2c2c/aaaaaa?text=Thumbnail+do+Video" alt="Thumbnail do vídeo 1">
+                    </a>
+                    <div class="video-details">
+                        <div class="channel-thumbnail"></div>
+                        <div class="video-info">
+                            <h3>Título do Vídeo</h3>
+                            <p>Nome do Canal</p>
+                            <p>1,2 mi de visualizações • há 1 dia</p>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Card de Vídeo 2 -->
+                <article class="video-card">
+                    <a href="#" class="video-thumbnail">
+                        <img src="https://placehold.co/320x180/2c2c2c/aaaaaa?text=Thumbnail+do+Video" alt="Thumbnail do vídeo 2">
+                    </a>
+                    <div class="video-details">
+                        <div class="channel-thumbnail"></div>
+                        <div class="video-info">
+                            <h3>Título do Vídeo 2</h3>
+                            <p>Nome do Canal 2</p>
+                            <p>500 mil visualizações • há 2 dias</p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card de Vídeo 3 -->
+                <article class="video-card">
+                    <a href="#" class="video-thumbnail">
+                        <img src="https://placehold.co/320x180/2c2c2c/aaaaaa?text=Thumbnail+do+Video" alt="Thumbnail do vídeo 3">
+                    </a>
+                    <div class="video-details">
+                        <div class="channel-thumbnail"></div>
+                        <div class="video-info">
+                            <h3>Título do Vídeo 3</h3>
+                            <p>Nome do Canal 3</p>
+                            <p>2,5 mi de visualizações • há 3 dias</p>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Card de Vídeo 4 -->
+                <article class="video-card">
+                    <a href="#" class="video-thumbnail">
+                        <img src="https://placehold.co/320x180/2c2c2c/aaaaaa?text=Thumbnail+do+Video" alt="Thumbnail do vídeo 4">
+                    </a>
+                    <div class="video-details">
+                        <div class="channel-thumbnail"></div>
+                        <div class="video-info">
+                            <h3>Título do Vídeo 4</h3>
+                            <p>Nome do Canal 4</p>
+                            <p>10 mil visualizações • há 1 semana</p>
+                        </div>
+                    </div>
+                </article>
+
+                 <!-- Card de Vídeo 5 -->
+                <article class="video-card">
+                    <a href="#" class="video-thumbnail">
+                        <img src="https://placehold.co/320x180/2c2c2c/aaaaaa?text=Thumbnail+do+Video" alt="Thumbnail do vídeo 5">
+                    </a>
+                    <div class="video-details">
+                        <div class="channel-thumbnail"></div>
+                        <div class="video-info">
+                            <h3>Título do Vídeo 5</h3>
+                            <p>Nome do Canal 5</p>
+                            <p>870 mil visualizações • há 1 mês</p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
