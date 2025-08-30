@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio "Construindo um Layout Responsivo Para o Site do Discord Com CSS"</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variáveis e Estilos Globais */
+        :root {
+            --brand-color: #5865f2;
+            --dark-bg: #23272a;
+            --darker-bg: #2c2f33;
+            --light-bg: #f6f6f6;
+            --text-color: #fff;
+            --dark-text: #23272a;
+            --text-secondary: #b9bbbe;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Seção Hero (Banner Principal) */
+        .hero {
+            background-color: var(--darker-bg);
+            background-image: url('https://discord.com/assets/f8d229e06e3312e75399.svg'), url('https://discord.com/assets/08611116630f9d92976d.svg');
+            background-position: left bottom, right bottom;
+            background-repeat: no-repeat;
+            background-size: contain, contain;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap; /* Permite a quebra de linha em telas pequenas */
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--text-color);
+            color: var(--dark-bg);
+        }
+
+        .btn-primary:hover {
+            background-color: #e2e2e2;
+        }
+
+        .btn-secondary {
+            background-color: var(--darker-bg);
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #33363a;
+        }
+
+        /* Seções de Conteúdo */
+        .content-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 0;
+            gap: 50px;
+        }
+
+        .content-text {
+            flex-basis: 50%;
+        }
+
+        .content-text h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: gray;
+        }
+
+        .content-text p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--dark-text);
+        }
+        
+        /* Imagens das Seções - Placeholder */
+        .content-image {
+            flex-basis: 50%;
+            height: 300px;
+            background-color: var(--text-secondary);
+            border-radius: 10px;
+        }
+
+        /* Variação de cores para as seções */
+        .light-bg {
+            background-color: var(--light-bg);
+        }
+
+        /* Inverter ordem do texto e imagem */
+        .reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* Media Queries para Responsividade */
+        @media (max-width: 900px) {
+            .content-section {
+                flex-direction: column; /* Coloca os elementos em coluna */
+                text-align: center;
+            }
+            .content-text, .content-image {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <!-- Seção Hero -->
+        <section class="hero">
+            <div class="container">
+                <h1>SEU LUGAR PARA CONVERSAR</h1>
+                <p>...onde quer que você esteja. O Discord é uma ferramenta de comunicação por voz, texto e vídeo.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">Baixe para Windows</a>
+                    <a href="#" class="btn btn-secondary">Abra o Discord no seu navegador</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Conteúdo 1 -->
+        <section class="content-section light-bg">
+            <div class="container">
+                <div class="content-text">
+                    <h2>Crie um espaço para sua comunidade</h2>
+                    <p>Canais de voz, texto e vídeo. Tudo em um só lugar, para que você possa se conectar com amigos e comunidades.</p>
+                </div>
+                <div class="content-image"></div>
+            </div>
+        </section>
+
+        <!-- Seção de Conteúdo 2 -->
+        <section class="content-section light-bg reverse">
+            <div class="container">
+                <div class="content-text">
+                    <h2>Fique perto de seus amigos e familiares</h2>
+                    <p>Não importa se você está em casa ou em qualquer outro lugar, fique conectado com quem você ama.</p>
+                </div>
+                <div class="content-image"></div>
+            </div>
+        </section>
+
+        <!-- Seção de Conteúdo 3 -->
+        <section class="content-section light-bg">
+            <div class="container">
+                <div class="content-text">
+                    <h2>Organize tudo em um só lugar</h2>
+                    <p>De grupos de estudo a comunidades de jogos, organize seu espaço com canais e funções de membro.</p>
+                </div>
+                <div class="content-image"></div>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
