@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yu-Gi-Oh! Jogo de Cartas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Globais */
+        :root {
+            --bg-color: #333;
+            --text-color: #fff;
+            --card-bg: #4b4b4b;
+            --border-color: #8b6e3f;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffd700;
+        }
+
+        .player-area, .computer-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .player-area h2, .computer-area h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .player-hand, .computer-hand {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .card {
+            width: 150px;
+            height: 200px;
+            background-color: var(--card-bg);
+            border: 3px solid var(--border-color);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 90%;
+            height: 90%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .card-back {
+            background: linear-gradient(to right, #8b6e3f, #d4a754);
+            color: var(--text-color);
+        }
+
+        .card-name {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .battle-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin: 50px 0;
+        }
+
+        .battle-card {
+            width: 200px;
+            height: 280px;
+            border: 5px dashed var(--border-color);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        #result-message {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        #start-button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            background-color: #5865f2;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #start-button:hover {
+            background-color: #4351c4;
+        }
+
+        @media (max-width: 600px) {
+            .battle-area {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Yu-Gi-Oh! Jogo de Cartas</h1>
+
+        <button id="start-button">Iniciar Duelo!</button>
+
+        <section class="battle-area">
+            <div id="player-card-slot" class="battle-card">Sua Carta</div>
+            <div id="computer-card-slot" class="battle-card">Carta do Oponente</div>
+        </section>
+
+        <h2 id="result-message">Clique para iniciar!</h2>
+
+        <section class="player-area">
+            <h2>Sua Mão</h2>
+            <div id="player-hand" class="player-hand">
+                <!-- As cartas do jogador serão inseridas aqui via JavaScript -->
+            </div>
+        </section>
+
+        <section class="computer-area" style="display: none;">
+            <h2>Mão do Oponente</h2>
+            <div id="computer-hand" class="computer-hand">
+                <!-- As cartas do oponente serão inseridas aqui via JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Mapeamento das regras do jogo (Pedra, Papel, Tesoura)
+        const rules = {
+            'dark-magician': 'blue-eyes', // Pedra vence Tesoura
+            'blue-eyes': 'exodia', // Papel vence Pedra
+            'exodia': 'dark-magician' // Tesoura vence Papel
+        };
+
+        // Dados das cartas (nome, tipo para o jogo, URL da imagem)
+        const cards = [
+            { name: 'dark-magician', type: 'dark-magician', img: 'https://cdn.shopify.com/s/files/1/0252/6401/3004/products/DarkMagician_2020.png?v=1602196662' },
+            { name: 'blue-eyes', type: 'blue-eyes', img: 'https://images.tokopedia.net/img/cache/700/product-1/2019/3/17/51553556/51553556_b796248d-63f2-45e3-9891-926c042296d9_700_700.jpg' },
+            { name: 'exodia', type: 'exodia', img: 'https://assets.pokemon.com/assets/cms2/img/cards/web/XY11/XY11_PT_54.png' }
+        ];
+
+        // Elementos do DOM
+        const startButton = document.getElementById('start-button');
+        const playerHand = document.getElementById('player-hand');
+        const computerCardSlot = document.getElementById('computer-card-slot');
+        const resultMessage = document.getElementById('result-message');
+        const playerCardSlot = document.getElementById('player-card-slot');
+
+        let playerCard = null;
+        let computerCard = null;
+
+        // Função para criar um card HTML
+        function createCard(cardData) {
+            const cardElement = document.createElement('div');
+            cardElement.classList.add('card');
+            cardElement.dataset.type = cardData.type;
+            cardElement.innerHTML = `<img src="${cardData.img}" alt="${cardData.name}"><div class="card-name">${cardData.name}</div>`;
+            return cardElement;
+        }
+
+        // Função para randomizar a escolha da IA
+        function getRandomCard() {
+            const randomIndex = Math.floor(Math.random() * cards.length);
+            return cards[randomIndex];
+        }
+
+        // Função para iniciar o duelo
+        function startDuel() {
+            startButton.style.display = 'none';
+            playerHand.innerHTML = '';
+            resultMessage.textContent = 'Escolha sua carta!';
+
+            cards.forEach(cardData => {
+                const cardElement = createCard(cardData);
+                cardElement.addEventListener('click', () => {
+                    playerCard = cardData;
+                    computerCard = getRandomCard();
+                    battle();
+                });
+                playerHand.appendChild(cardElement);
+            });
+        }
+
+        // Lógica de batalha
+        function battle() {
+            playerHand.innerHTML = '';
+            playerCardSlot.innerHTML = `<img src="${playerCard.img}" alt="${playerCard.name}">`;
+            computerCardSlot.innerHTML = `<img src="${computerCard.img}" alt="${computerCard.name}">`;
+
+            let result = '';
+            if (playerCard.type === computerCard.type) {
+                result = 'Empate!';
+            } else if (rules[playerCard.type] === computerCard.type) {
+                result = 'Você Venceu!';
+            } else {
+                result = 'Você Perdeu!';
+            }
+
+            resultMessage.textContent = result;
+            
+            setTimeout(() => {
+                startButton.textContent = 'Jogar Novamente';
+                startButton.style.display = 'block';
+                playerCardSlot.innerHTML = 'Sua Carta';
+                computerCardSlot.innerHTML = 'Carta do Oponente';
+            }, 2000);
+        }
+
+        startButton.addEventListener('click', startDuel);
+
+    </script>
+
+</body>
+</html>
