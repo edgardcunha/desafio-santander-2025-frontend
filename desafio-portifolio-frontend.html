@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variáveis CSS para temas */
+        :root {
+            --background-color: #f0f2f5;
+            --text-color: #333;
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --card-bg: #fff;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --background-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --primary-color: #5865f2;
+            --secondary-color: #b9bbbe;
+            --card-bg: #2c2f33;
+            --shadow-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Seção do cabeçalho */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--secondary-color);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Seções de conteúdo */
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .about-me {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .about-me-text {
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            padding: 20px;
+            width: 300px;
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card h3 {
+            font-size: 20px;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .project-card p {
+            font-size: 14px;
+            color: var(--secondary-color);
+        }
+
+        /* Botão de tema */
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Media Queries para responsividade */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+            }
+            .nav-links {
+                margin-top: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-link {
+                margin: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">Seu Nome</a>
+            <nav class="nav-links">
+                <a href="#about" class="nav-link">Sobre Mim</a>
+                <a href="#projects" class="nav-link">Projetos</a>
+                <a href="#contact" class="nav-link">Contato</a>
+                <button class="theme-toggle-btn">☀️</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Sobre Mim -->
+        <section id="about" class="about-me container">
+            <h2 class="section-title">Sobre Mim</h2>
+            <p class="about-me-text">
+                Olá! Eu sou [Seu Nome], um desenvolvedor front-end com paixão por criar interfaces web elegantes e intuitivas. Tenho experiência em HTML, CSS e JavaScript, e estou sempre em busca de novas tecnologias para aprimorar minhas habilidades.
+            </p>
+        </section>
+
+        <!-- Seção de Projetos -->
+        <section id="projects" class="projects container">
+            <h2 class="section-title">Meus Projetos</h2>
+            <!-- Projeto 1 -->
+            <div class="project-card">
+                <h3>Projeto Clone do Spotify</h3>
+                <p>Uma reprodução da página inicial do Spotify utilizando HTML e CSS.</p>
+            </div>
+            <!-- Projeto 2 -->
+            <div class="project-card">
+                <h3>Calculadora Simples</h3>
+                <p>Uma calculadora funcional construída com HTML, CSS e JavaScript.</p>
+            </div>
+            <!-- Projeto 3 -->
+            <div class="project-card">
+                <h3>Landing Page Responsiva</h3>
+                <p>Página de aterrissagem para uma empresa fictícia, otimizada para todos os dispositivos.</p>
+            </div>
+        </section>
+
+        <!-- Seção de Contato -->
+        <section id="contact" class="container">
+            <h2 class="section-title">Contato</h2>
+            <p style="text-align: center;">Entre em contato comigo através do meu e-mail ou redes sociais.</p>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeBtn = document.querySelector('.theme-toggle-btn');
+            const body = document.body;
+
+            themeBtn.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    themeBtn.textContent = '🌙';
+                } else {
+                    themeBtn.textContent = '☀️';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
