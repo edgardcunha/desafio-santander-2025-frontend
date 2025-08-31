@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokedex</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos Globais */
+        :root {
+            --background-color: #f6f6f6;
+            --text-color: #333;
+            --header-bg: #fff;
+            --card-bg: #fff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Cores dos Tipos */
+        .normal { background-color: #A8A878; }
+        .fire { background-color: #F08030; }
+        .water { background-color: #6890F0; }
+        .grass { background-color: #78C850; }
+        .electric { background-color: #F8D030; }
+        .ice { background-color: #98D8D8; }
+        .fighting { background-color: #C03028; }
+        .poison { background-color: #A040A0; }
+        .ground { background-color: #E0C068; }
+        .flying { background-color: #A890F0; }
+        .psychic { background-color: #F85888; }
+        .bug { background-color: #A8B820; }
+        .rock { background-color: #B8A038; }
+        .ghost { background-color: #705898; }
+        .dragon { background-color: #7038F8; }
+        .steel { background-color: #B8B8D0; }
+        .dark { background-color: #705848; }
+        .fairy { background-color: #EE99AC; }
+
+        /* Estilo da Pokédex */
+        .pokedex-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pokedex-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        .pokemon-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px var(--shadow);
+            padding: 20px;
+            color: var(--text-color);
+            text-shadow: 1px 1px 2px var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .pokemon-card:hover {
+            transform: scale(1.05);
+        }
+
+        .pokemon-name {
+            font-size: 1.5rem;
+            text-transform: capitalize;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .pokemon-id {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pokemon-image {
+            width: 90px;
+            height: 90px;
+            margin: 10px 0;
+        }
+
+        .pokemon-types {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .pokemon-type-badge {
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 5px 10px;
+        }
+
+        .load-more-btn {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .load-more-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <header class="pokedex-header">
+            <h1>Minha Pokédex</h1>
+        </header>
+        
+        <ul id="pokedex" class="pokedex-grid">
+            <!-- Pokémon cards will be injected here by JavaScript -->
+        </ul>
+        
+        <button id="loadMore" class="load-more-btn">Carregar mais Pokémon</button>
+    </main>
+
+    <script>
+        const pokedex = document.getElementById('pokedex');
+        const loadMoreBtn = document.getElementById('loadMore');
+        const API_BASE_URL = 'https://pokeapi.co/api/v2/pokemon/';
+
+        let offset = 0;
+        const limit = 10;
+
+        // Função para obter o nome do tipo do Pokémon e a classe de cor
+        const getPokemonTypeAndClass = (types) => {
+            const primaryType = types[0].type.name;
+            const typeClass = primaryType.toLowerCase();
+            return typeClass;
+        };
+
+        // Função para renderizar um card de Pokémon na página
+        const renderPokemonCard = (pokemon) => {
+            const pokemonCard = document.createElement('li');
+            const pokemonTypeClass = getPokemonTypeAndClass(pokemon.types);
+            
+            pokemonCard.classList.add('pokemon-card', pokemonTypeClass);
+
+            const typesHtml = pokemon.types.map(type => 
+                `<span class="pokemon-type-badge">${type.type.name}</span>`
+            ).join('');
+
+            pokemonCard.innerHTML = `
+                <span class="pokemon-id">#${pokemon.id.toString().padStart(3, '0')}</span>
+                <img class="pokemon-image" src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+                <h2 class="pokemon-name">${pokemon.name}</h2>
+                <div class="pokemon-types">
+                    ${typesHtml}
+                </div>
+            `;
+            pokedex.appendChild(pokemonCard);
+        };
+
+        // Função para buscar um Pokémon individualmente
+        const fetchPokemon = async (url) => {
+            try {
+                const response = await fetch(url);
+                const pokemon = await response.json();
+                renderPokemonCard(pokemon);
+            } catch (error) {
+                console.error("Erro ao buscar Pokémon:", error);
+            }
+        };
+
+        // Função principal para carregar a lista de Pokémon
+        const loadPokedex = async (currentOffset, currentLimit) => {
+            const url = `${API_BASE_URL}?offset=${currentOffset}&limit=${currentLimit}`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                data.results.forEach(pokemon => {
+                    fetchPokemon(pokemon.url);
+                });
+
+                // Atualiza o offset para a próxima carga
+                offset += limit;
+            } catch (error) {
+                console.error("Erro ao carregar a lista de Pokémon:", error);
+            }
+        };
+
+        // Evento para o botão de carregar mais
+        loadMoreBtn.addEventListener('click', () => {
+            loadPokedex(offset, limit);
+        });
+
+        // Carrega os Pokémon iniciais ao carregar a página
+        window.onload = () => {
+            loadPokedex(offset, limit);
+        };
+    </script>
+
+</body>
+</html>
